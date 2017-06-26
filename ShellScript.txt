@@ -1,0 +1,25 @@
+start-hbase.sh
+
+echo "create 'customer', 'details'" | hbase shell
+
+file="/home/acadgild/hbase/customers.dat"
+
+while IFS= read -r line
+
+do
+
+id=`echo $line | cut -d',' -f1`
+
+name=`echo $line | cut -d',' -f2`
+
+loc=`echo $line | cut -d',' -f3`
+
+age=`echo $line | cut -d',' -f4`
+
+echo "put 'customer', '$id', 'details:name', '$name'" | hbase shell
+
+echo "put 'customer', '$id', 'details:loc', '$loc'" | hbase shell
+
+echo "put 'customer', '$id', 'details:age', '$age'" | hbase shell
+
+done <"$file"
